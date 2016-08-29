@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface EpisodeService {
 
-    public List<Episode> getLatestEpisodes(int episodeCount);
+    public List<Episode> getLatestEpisodes(int limit);
 
     public Episode getNewestEpisode();
 
