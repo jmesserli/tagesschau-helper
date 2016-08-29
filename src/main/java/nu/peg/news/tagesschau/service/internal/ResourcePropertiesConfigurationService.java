@@ -18,7 +18,6 @@ public class ResourcePropertiesConfigurationService implements ConfigurationServ
         }
     }
 
-
     @Override
     public String get(String key) {
         return properties.getProperty(key);
