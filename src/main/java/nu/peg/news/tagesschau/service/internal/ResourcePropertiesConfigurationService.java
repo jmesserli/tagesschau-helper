@@ -2,6 +2,7 @@ package nu.peg.news.tagesschau.service.internal;
 
 import nu.peg.news.tagesschau.service.ConfigurationService;
 
+import javax.inject.Inject;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -9,6 +10,7 @@ public class ResourcePropertiesConfigurationService implements ConfigurationServ
 
     private Properties properties;
 
+    @Inject
     public ResourcePropertiesConfigurationService() {
         try {
             properties = new Properties();
