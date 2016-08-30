@@ -26,6 +26,39 @@ public class Episode {
         this.podcastSizeBytes = podcastSizeBytes;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Episode)) return false;
+
+        Episode episode = (Episode) o;
+
+        if (getPodcastSizeBytes() != episode.getPodcastSizeBytes()) return false;
+        if (getGuid() != null ? !getGuid().equals(episode.getGuid()) : episode.getGuid() != null)
+            return false;
+        if (getTitle() != null ? !getTitle().equals(episode.getTitle()) : episode.getTitle() != null)
+            return false;
+        if (getSummary() != null ? !getSummary().equals(episode.getSummary()) : episode.getSummary() != null)
+            return false;
+        if (getPublishedDate() != null ? !getPublishedDate().equals(episode.getPublishedDate()) : episode.getPublishedDate() != null)
+            return false;
+        if (getLength() != null ? !getLength().equals(episode.getLength()) : episode.getLength() != null)
+            return false;
+        return getPodcastUrl() != null ? getPodcastUrl().equals(episode.getPodcastUrl()) : episode.getPodcastUrl() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getGuid() != null ? getGuid().hashCode() : 0;
+        result = 31 * result + (getTitle() != null ? getTitle().hashCode() : 0);
+        result = 31 * result + (getSummary() != null ? getSummary().hashCode() : 0);
+        result = 31 * result + (getPublishedDate() != null ? getPublishedDate().hashCode() : 0);
+        result = 31 * result + (getLength() != null ? getLength().hashCode() : 0);
+        result = 31 * result + (getPodcastUrl() != null ? getPodcastUrl().hashCode() : 0);
+        result = 31 * result + (int) (getPodcastSizeBytes() ^ (getPodcastSizeBytes() >>> 32));
+        return result;
+    }
+
     //region Getters and setters
     public String getGuid() {
         return guid;

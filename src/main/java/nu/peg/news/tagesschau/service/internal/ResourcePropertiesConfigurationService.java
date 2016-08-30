@@ -2,9 +2,10 @@ package nu.peg.news.tagesschau.service.internal;
 
 import nu.peg.news.tagesschau.service.ConfigurationService;
 
-import javax.inject.Inject;
 import java.io.IOException;
 import java.util.Properties;
+
+import javax.inject.Inject;
 
 public class ResourcePropertiesConfigurationService implements ConfigurationService {
 

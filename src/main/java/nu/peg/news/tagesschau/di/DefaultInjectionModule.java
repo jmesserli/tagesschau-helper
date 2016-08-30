@@ -1,20 +1,27 @@
 package nu.peg.news.tagesschau.di;
 
-import dagger.Module;
-import dagger.Provides;
 import nu.peg.news.tagesschau.api.pushbullet.PushbulletApi;
 import nu.peg.news.tagesschau.api.pushbullet.internal.DefaultPushbulletApi;
 import nu.peg.news.tagesschau.model.Episode;
 import nu.peg.news.tagesschau.model.mapper.Converter;
 import nu.peg.news.tagesschau.model.mapper.ElementsToEpisodeListConverter;
-import nu.peg.news.tagesschau.service.*;
+import nu.peg.news.tagesschau.service.ConfigurationService;
+import nu.peg.news.tagesschau.service.EpisodeDatabaseService;
+import nu.peg.news.tagesschau.service.EpisodeDownloadService;
+import nu.peg.news.tagesschau.service.EpisodeService;
+import nu.peg.news.tagesschau.service.NotifyService;
 import nu.peg.news.tagesschau.service.internal.FeedEpisodeService;
 import nu.peg.news.tagesschau.service.internal.ResourcePropertiesConfigurationService;
 import nu.peg.news.tagesschau.service.internal.SQLiteEpisodeDatabaseService;
+
 import org.jsoup.select.Elements;
 
-import javax.inject.Singleton;
 import java.util.List;
+
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
 
 @Module
 public class DefaultInjectionModule {
