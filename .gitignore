@@ -1,4 +1,7 @@
 .idea/
 target/
+episodes/
+episodes.db
+test_database.sqlite
 *.iml
 **/config.properties

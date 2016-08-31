@@ -13,6 +13,7 @@ import nu.peg.news.tagesschau.service.NotifyService;
 import nu.peg.news.tagesschau.service.internal.FeedEpisodeService;
 import nu.peg.news.tagesschau.service.internal.ResourcePropertiesConfigurationService;
 import nu.peg.news.tagesschau.service.internal.SQLiteEpisodeDatabaseService;
+import nu.peg.news.tagesschau.service.internal.ThreadedEpisodeDownloadService;
 
 import org.jsoup.select.Elements;
 
@@ -37,8 +38,8 @@ public class DefaultInjectionModule {
     }
 
     @Provides
-    static EpisodeDownloadService provideEpisodeDownloadService() {
-        return null;
+    static EpisodeDownloadService provideEpisodeDownloadService(ThreadedEpisodeDownloadService threadedEpisodeDownloadService) {
+        return threadedEpisodeDownloadService;
     }
 
     @Provides
