@@ -42,7 +42,7 @@ public class App {
 
     public void startWatchingEpisodes() {
         long timeout = Long.parseLong(configService.getOr("episodeservice.timer", "900")) * 1000L;
-        Path targetFolder = Paths.get(configService.getOr("episodes.target.folder", "./episodes"));
+        Path targetFolder = Paths.get(configService.getOr("episode.target.folder", "./episodes"));
 
         while (true) {
             Episode episode = episodeService.getNewestEpisode();
