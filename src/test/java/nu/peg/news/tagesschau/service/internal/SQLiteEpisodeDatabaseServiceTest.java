@@ -44,8 +44,8 @@ public class SQLiteEpisodeDatabaseServiceTest {
                 LocalDateTime.now(),
                 Duration.ofSeconds(500),
                 "someurl",
-                1_000_000L
-        );
+                1_000_000L,
+                null);
 
         Episode episode2 = new Episode(
                 "testing-guid-number-2",
@@ -54,8 +54,8 @@ public class SQLiteEpisodeDatabaseServiceTest {
                 LocalDateTime.now().minusDays(1),
                 Duration.ofSeconds(120),
                 "someslightlydifferenturl",
-                2_048_000L
-        );
+                2_048_000L,
+                "C:\\episode2.mp4");
 
         testEpisodes.add(episode1);
         testEpisodes.add(episode2);
@@ -68,7 +68,8 @@ public class SQLiteEpisodeDatabaseServiceTest {
 
     @Test
     public void getAll() throws Exception {
-        testEpisodes.stream().forEach(dbService::add);
+        Boolean addAllTrue = testEpisodes.stream().map(dbService::add).reduce(true, (b1, b2) -> b1 & b2);
+        assertThat(addAllTrue).isTrue();
 
         List<Episode> all = dbService.getAll();
         assertThat(all).hasSize(2);
@@ -79,8 +80,7 @@ public class SQLiteEpisodeDatabaseServiceTest {
     public void getByGuid() throws Exception {
         Episode episode = testEpisodes.get(1);
 
-        dbService.add(episode);
-
+        assertThat(dbService.add(episode)).isTrue();
         assertThat(dbService.getByGuid(episode.getGuid())).isEqualTo(episode);
     }
 
@@ -88,9 +88,9 @@ public class SQLiteEpisodeDatabaseServiceTest {
     public void delete() throws Exception {
         Episode episode = testEpisodes.get(0);
 
-        dbService.add(episode);
+        assertThat(dbService.add(episode)).isTrue();
         assertThat(dbService.getAll()).hasSize(1);
-        dbService.delete(episode);
+        assertThat(dbService.delete(episode)).isTrue();
         assertThat(dbService.getAll()).isEmpty();
     }
 
@@ -98,9 +98,9 @@ public class SQLiteEpisodeDatabaseServiceTest {
     public void deleteByGuid() throws Exception {
         Episode episode = testEpisodes.get(0);
 
-        dbService.add(episode);
+        assertThat(dbService.add(episode)).isTrue();
         assertThat(dbService.getAll()).hasSize(1);
-        dbService.deleteByGuid(episode.getGuid());
+        assertThat(dbService.deleteByGuid(episode.getGuid())).isTrue();
         assertThat(dbService.getAll()).isEmpty();
     }
 }

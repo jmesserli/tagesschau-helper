@@ -7,12 +7,9 @@ import nu.peg.news.tagesschau.service.ConfigurationService;
 import nu.peg.news.tagesschau.service.EpisodeDatabaseService;
 import nu.peg.news.tagesschau.service.EpisodeService;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 public class App {
-
     private EpisodeService episodeService;
     private EpisodeDatabaseService databaseService;
     private ConfigurationService configService;
@@ -32,6 +29,6 @@ public class App {
     }
 
     public void startWatchingEpisodes() {
-        List<Episode> episodes = episodeService.getLatestEpisodes(5);
+        Episode episodes = episodeService.getNewestEpisode();
     }
 }

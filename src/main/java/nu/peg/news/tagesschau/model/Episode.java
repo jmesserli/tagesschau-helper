@@ -12,11 +12,12 @@ public class Episode {
     private Duration length;
     private String podcastUrl;
     private long podcastSizeBytes;
+    private String localPath;
 
     public Episode() {
     }
 
-    public Episode(String guid, String title, String summary, LocalDateTime publishedDate, Duration length, String podcastUrl, long podcastSizeBytes) {
+    public Episode(String guid, String title, String summary, LocalDateTime publishedDate, Duration length, String podcastUrl, long podcastSizeBytes, String localPath) {
         this.guid = guid;
         this.title = title;
         this.summary = summary;
@@ -24,6 +25,7 @@ public class Episode {
         this.length = length;
         this.podcastUrl = podcastUrl;
         this.podcastSizeBytes = podcastSizeBytes;
+        this.localPath = localPath;
     }
 
     @Override
@@ -44,7 +46,9 @@ public class Episode {
             return false;
         if (getLength() != null ? !getLength().equals(episode.getLength()) : episode.getLength() != null)
             return false;
-        return getPodcastUrl() != null ? getPodcastUrl().equals(episode.getPodcastUrl()) : episode.getPodcastUrl() == null;
+        if (getPodcastUrl() != null ? !getPodcastUrl().equals(episode.getPodcastUrl()) : episode.getPodcastUrl() != null)
+            return false;
+        return getLocalPath() != null ? getLocalPath().equals(episode.getLocalPath()) : episode.getLocalPath() == null;
     }
 
     @Override
@@ -56,6 +60,7 @@ public class Episode {
         result = 31 * result + (getLength() != null ? getLength().hashCode() : 0);
         result = 31 * result + (getPodcastUrl() != null ? getPodcastUrl().hashCode() : 0);
         result = 31 * result + (int) (getPodcastSizeBytes() ^ (getPodcastSizeBytes() >>> 32));
+        result = 31 * result + (getLocalPath() != null ? getLocalPath().hashCode() : 0);
         return result;
     }
 
@@ -114,6 +119,14 @@ public class Episode {
 
     public void setPublishedDate(LocalDateTime publishedDate) {
         this.publishedDate = publishedDate;
+    }
+
+    public String getLocalPath() {
+        return localPath;
+    }
+
+    public void setLocalPath(String localPath) {
+        this.localPath = localPath;
     }
     //endregion
 }

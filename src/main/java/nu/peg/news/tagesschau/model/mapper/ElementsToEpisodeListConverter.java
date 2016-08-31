@@ -30,8 +30,8 @@ public class ElementsToEpisodeListConverter implements Converter<Elements, List<
                     LocalDateTime.parse(element.select("pubDate").text(), publishedFormatter),
                     Duration.ofSeconds(Long.parseLong(element.select("itunes|duration").text())),
                     element.select("enclosure").attr("url"),
-                    Long.parseLong(element.select("enclosure").attr("length"))
-            );
+                    Long.parseLong(element.select("enclosure").attr("length")),
+                    null);
         }).collect(Collectors.toList());
     }
 }

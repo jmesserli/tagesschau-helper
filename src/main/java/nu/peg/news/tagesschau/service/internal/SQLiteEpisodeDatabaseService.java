@@ -36,7 +36,7 @@ public class SQLiteEpisodeDatabaseService implements EpisodeDatabaseService {
     }
 
     private void initializeTable() throws SQLException {
-        PreparedStatement createStmt = connection.prepareStatement("CREATE TABLE IF NOT EXISTS Episode (guid TEXT PRIMARY KEY NOT NULL,  title TEXT NOT NULL,  summary TEXT NOT NULL,  publisheddate TEXT NOT NULL,  length NUMERIC NOT NULL,  podcasturl TEXT NOT NULL,  podcastsize NUMERIC NOT NULL)");
+        PreparedStatement createStmt = connection.prepareStatement("CREATE TABLE IF NOT EXISTS Episode (guid TEXT PRIMARY KEY NOT NULL,  title TEXT NOT NULL,  summary TEXT NOT NULL,  publisheddate TEXT NOT NULL,  length NUMERIC NOT NULL,  podcasturl TEXT NOT NULL,  podcastsize NUMERIC NOT NULL, localpath TEXT)");
         createStmt.execute();
     }
 
@@ -51,11 +51,12 @@ public class SQLiteEpisodeDatabaseService implements EpisodeDatabaseService {
             long length = rs.getLong("length");
             String podcasturl = rs.getString("podcasturl");
             long podcastsize = rs.getLong("podcastsize");
+            String localpath = rs.getString("localpath");
 
             LocalDateTime parsedPublishedDate = LocalDateTime.parse(publisheddate, dateTimeFormat);
             Duration parsedLength = Duration.ofSeconds(length);
 
-            Episode episode = new Episode(guid, title, summary, parsedPublishedDate, parsedLength, podcasturl, podcastsize);
+            Episode episode = new Episode(guid, title, summary, parsedPublishedDate, parsedLength, podcasturl, podcastsize, localpath);
             episodes.add(episode);
         }
 
@@ -91,7 +92,7 @@ public class SQLiteEpisodeDatabaseService implements EpisodeDatabaseService {
     @Override
     public boolean add(Episode episode) {
         try {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Episode (guid, title, summary, publisheddate, length, podcasturl, podcastsize) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Episode (guid, title, summary, publisheddate, length, podcasturl, podcastsize, localpath) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, episode.getGuid());
             stmt.setString(2, episode.getTitle());
             stmt.setString(3, episode.getSummary());
@@ -99,8 +100,10 @@ public class SQLiteEpisodeDatabaseService implements EpisodeDatabaseService {
             stmt.setLong(5, episode.getLength().getSeconds());
             stmt.setString(6, episode.getPodcastUrl());
             stmt.setLong(7, episode.getPodcastSizeBytes());
+            stmt.setString(8, episode.getLocalPath());
 
-            return stmt.execute();
+            stmt.execute();
+            return stmt.getUpdateCount() > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

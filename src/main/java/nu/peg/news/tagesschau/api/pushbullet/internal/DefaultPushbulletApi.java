@@ -13,7 +13,6 @@ public class DefaultPushbulletApi implements PushbulletApi {
     private Gson gson;
 
     public DefaultPushbulletApi() {
-
         gson = new Gson();
     }
 
