@@ -8,10 +8,13 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import nu.peg.news.tagesschau.api.pushbullet.PushbulletApi;
 
+import javax.inject.Inject;
+
 public class DefaultPushbulletApi implements PushbulletApi {
 
     private Gson gson;
 
+    @Inject
     public DefaultPushbulletApi() {
         gson = new Gson();
     }

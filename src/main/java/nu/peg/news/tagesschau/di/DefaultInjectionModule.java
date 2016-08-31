@@ -11,6 +11,7 @@ import nu.peg.news.tagesschau.service.EpisodeDownloadService;
 import nu.peg.news.tagesschau.service.EpisodeService;
 import nu.peg.news.tagesschau.service.NotifyService;
 import nu.peg.news.tagesschau.service.internal.FeedEpisodeService;
+import nu.peg.news.tagesschau.service.internal.PushBulletNotifyService;
 import nu.peg.news.tagesschau.service.internal.ResourcePropertiesConfigurationService;
 import nu.peg.news.tagesschau.service.internal.SQLiteEpisodeDatabaseService;
 import nu.peg.news.tagesschau.service.internal.ThreadedEpisodeDownloadService;
@@ -28,8 +29,8 @@ import dagger.Provides;
 public class DefaultInjectionModule {
 
     @Provides
-    static NotifyService provideNotifyService() {
-        return null;
+    static NotifyService provideNotifyService(PushBulletNotifyService pushBulletNotifyService) {
+        return pushBulletNotifyService;
     }
 
     @Provides
